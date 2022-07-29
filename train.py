@@ -101,7 +101,7 @@ def read_S1_pikle (path,S1_length,S1_feature):
     X = np.array(X).transpose((0, 2, 1))
     return X, data_low, data_high
 
-os.environ["CUDA_VISIBLE_DEVICES"] = '2' #use GPU with ID=1
+os.environ["CUDA_VISIBLE_DEVICES"] = '1' #use GPU with ID=1
 config = tf.compat.v1.ConfigProto()
 config.gpu_options.allow_growth = True #allocate dynamically
 
@@ -150,7 +150,7 @@ output=(Dense(output_length,activation='linear'))(decoder2)
 model = Model(inputs=[visible1, visible2], outputs=output)
 model.compile(optimizer="rmsprop",loss=loss,metrics=[acc_score])
 model.summary()
-model.fit([X_vv,X_vh],s2_train,epochs=args.epoch,batch_size=args.batch_size,validation_split=args.val)
+model.fit([X_vv,X_vh],s2_train,epochs=args.epoch,batch_size=args.batch)
 #model = Sequential()
 #model.add(LSTM(hidden_dim,input_shape=(input_length,input_dim), return_sequences=False))
 #model.add(Dense(hidden_dim, activation="tanh"))
